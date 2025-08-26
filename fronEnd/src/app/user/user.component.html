@@ -1,0 +1,95 @@
+<main>
+  <h3 class="screen-title">الإعدادات الخاصة/الموظفين</h3>
+  <div class="action-buttons" style="position: relative">
+    <button class="add-button" (click)="addUser()">اضافة موظف</button>
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      placeholder="بحث عن ادارة"
+      (keyup.enter)="filterUsers()"
+      style="width: 200px; position: absolute; left: 50px"
+    />
+    <img
+      src="assets/refreshIcon.svg"
+      alt="Refresh"
+      (click)="refreshUsers()"
+      style="width: 24px; cursor: pointer; position: absolute; left: 15px"
+    />
+  </div>
+  <div class="viewTable">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <button class="sort-button" (click)="sortUsers(1)">
+              اسم الموظف
+              <span *ngIf="OrderBy == 1">
+                {{ ascending ? "⬇️" : "⬆️" }}
+              </span>
+            </button>
+          </th>
+          <th>الرقم القومي</th>
+          <th>
+            <button class="sort-button" (click)="sortUsers(2)">
+              اسم المستخدم
+              <span *ngIf="OrderBy == 2">
+                {{ ascending ? "⬇️" : "⬆️" }}
+              </span>
+            </button>
+          </th>
+          <th>الإدارة</th>
+          <th>مجموعات العمل</th>
+          <th>موقوف</th>
+          <th>محصل خارجي</th>
+          <th class="edit-col">تعديل</th>
+          <th class="delete-col">تعيين كلمة المرور</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let User of users">
+          <td>{{ User.empName }}</td>
+          <td>{{ User.natId }}</td>
+          <td>{{ User.userName }}</td>
+          <td>{{ User.deptName }}</td>
+          <td>{{ User.workGroups }}</td>
+          <td>
+            <input
+              type="checkbox"
+              disabled="true"
+              [checked]="User.stopped"
+              style="width: 20px; height: 20px"
+            />
+          </td>
+          <td>
+            <input
+              style="width: 20px; height: 20px"
+              type="checkbox"
+              disabled="true"
+              [checked]="User.extClctr"
+            />
+          </td>
+          <td class="edit-col">
+            <img
+              src="assets/editIcon.svg"
+              alt="Edit"
+              (click)="editUser(User)"
+            />
+          </td>
+          <td class="delete-col">
+            <img
+              src="assets/lockIcon.svg"
+              alt="Delete"
+              style="width: 20px"
+              (click)="editPassword(User.id, User.userName)"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination
+    [totalItems]="totalUsers"
+    (pageChange)="onPageChange($event)"
+    (pageSizeChange)="onPageSizeChange($event)"
+  ></app-pagination>
+</main>

@@ -1,0 +1,98 @@
+<div class="dialog-form">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <form #addUserForm="ngForm">
+    <mat-dialog-content>
+      <mat-form-field>
+        <mat-label>اسم الموظف</mat-label>
+        <input matInput [(ngModel)]="user.empName" name="name" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>اسم المستخدم</mat-label>
+        <input matInput [(ngModel)]="user.userName" name="userName" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>الرقم القومي</mat-label>
+        <input matInput [(ngModel)]="user.natId" name="natId" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>الادارة</mat-label>
+        <select
+          matNativeControl
+          [(ngModel)]="user.deptId"
+          name="deptId"
+          required
+        >
+          <option *ngFor="let dept of depts" [value]="dept.id">
+            {{ dept.name }}
+          </option>
+        </select>
+      </mat-form-field>
+      <mat-checkbox [(ngModel)]="user.extClctr" name="extClctr">
+        محصل خارجي؟
+      </mat-checkbox>
+      <mat-checkbox *ngIf="data.user" [(ngModel)]="user.stopped" name="stopped">
+        موقوف
+      </mat-checkbox>
+    </mat-dialog-content>
+    <mat-dialog-content>
+      <h2>مجموعات العمل</h2>
+      <div class="groups-row">
+        <mat-form-field style="flex: 1">
+          <mat-label>المجموعة</mat-label>
+          <select
+            matNativeControl
+            [(ngModel)]="selectedGroupId"
+            name="selectGroupId"
+          >
+            <option *ngFor="let group of groups" [ngValue]="group.id">
+              {{ group.name }}
+            </option>
+          </select>
+        </mat-form-field>
+        <button
+          mat-mini-fab
+          type="button"
+          (click)="addGroup()"
+          aria-label="Add group"
+          class="add-button"
+        >
+          <img src="assets/addIcon.svg" />
+        </button>
+      </div>
+
+      <table *ngIf="selectedGroups.length" class="groups-table">
+        <thead>
+          <tr>
+            <th>اسم المجموعة</th>
+            <th>حذف</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let g of selectedGroups">
+            <td>{{ g.name }}</td>
+            <td style="text-align: center">
+              <button
+                type="button"
+                class="delete-btn"
+                (click)="removeGroup(g.id)"
+              >
+                <img src="assets/deleteIcon2.svg" alt="" />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </mat-dialog-content>
+  </form>
+  <mat-dialog-actions align="start">
+    <button mat-button mat-dialog-close type="button">إلغاء</button>
+    <button
+      mat-button
+      [disabled]="!addUserForm.valid"
+      [mat-dialog-close]="{ user: user }"
+      type="button"
+    >
+      {{ data.user ? "تعديل" : "إضافة" }}
+    </button>
+  </mat-dialog-actions>
+</div>

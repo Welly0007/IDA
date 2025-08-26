@@ -1,0 +1,59 @@
+<main>
+  <h3 class="screen-title">عنوان الشاشة</h3>
+  <div class="action-buttons" style="position: relative">
+    <button class="add-button" (click)="addDept()">اضافة ادارة</button>
+    <input
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="بحث عن ادارة"
+      (keyup.enter)="filterDepts()"
+      style="width: 200px; position: absolute; left: 50px"
+    />
+    <img
+      src="assets/refreshIcon.svg"
+      alt="Refresh"
+      (click)="getDepts()"
+      style="width: 24px; cursor: pointer; position: absolute; left: 15px"
+    />
+  </div>
+  <div class="viewTable">
+    <table>
+      <thead>
+        <tr>
+          <th>
+            <button class="sort-button" (click)="sortDepts()">
+              اسم الادارة
+              {{ ascending ? "⬇️" : "⬆️" }}
+            </button>
+          </th>
+          <th class="edit-col">تعديل</th>
+          <th class="delete-col">حذف</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let dept of depts">
+          <td>{{ dept.name }}</td>
+          <td class="edit-col">
+            <img
+              src="assets/editIcon.svg"
+              alt="Edit"
+              (click)="editDept(dept)"
+            />
+          </td>
+          <td class="delete-col">
+            <img
+              src="assets/deleteIcon.svg"
+              alt="Delete"
+              (click)="deleteDept(dept)"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination
+    [totalItems]="totalDepts"
+    (pageChange)="onPageChange($event)"
+    (pageSizeChange)="onPageSizeChange($event)"
+  ></app-pagination>
+</main>

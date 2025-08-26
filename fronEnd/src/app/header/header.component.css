@@ -1,0 +1,39 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ededed;
+  padding: 1.8%;
+  border-bottom: 1px solid #d9dee4;
+  width: 100%;
+}
+
+.user-head {
+  display: flex;
+  gap: 10px;
+}
+h1 {
+  color: #2a3f54;
+  font-size: 20px;
+}
+.user-head {
+  display: flex;
+  /* gap: 10px; */
+  align-items: center;
+}
+.user-head img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+.nav-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  /* width: 30px; */
+}
+.nav-toggle img {
+  width: 30px;
+  height: 30px;
+}

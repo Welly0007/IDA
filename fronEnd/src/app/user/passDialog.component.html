@@ -1,0 +1,97 @@
+<div class="dialog-form">
+  <h2 mat-dialog-title>إدارة كلمة المرور</h2>
+
+  <mat-dialog-content>
+    <!-- Reset Password Toggle -->
+    <div class="reset-option">
+      <mat-checkbox
+        [(ngModel)]="resetPassword"
+        name="resetPassword"
+        (change)="onResetToggleChange()"
+      >
+        إعادة تعيين كلمة المرور إلى القيمة الافتراضية
+      </mat-checkbox>
+    </div>
+
+    <!-- Password Change Form (only visible when not resetting) -->
+    <form #passwordForm="ngForm" *ngIf="!resetPassword">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>كلمة المرور الحالية</mat-label>
+        <input
+          matInput
+          type="password"
+          [(ngModel)]="passwords.oldPassword"
+          name="oldPassword"
+          required
+          #oldPasswordInput="ngModel"
+        />
+        <mat-error *ngIf="oldPasswordInput.invalid && oldPasswordInput.touched">
+          كلمة المرور الحالية مطلوبة
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>كلمة المرور الجديدة</mat-label>
+        <input
+          matInput
+          type="password"
+          [(ngModel)]="passwords.newPassword"
+          name="newPassword"
+          required
+          minlength="8"
+          #newPasswordInput="ngModel"
+        />
+        <mat-error *ngIf="newPasswordInput.invalid && newPasswordInput.touched">
+          <span *ngIf="newPasswordInput.errors?.['required']"
+            >كلمة المرور الجديدة مطلوبة</span
+          >
+          <span *ngIf="newPasswordInput.errors?.['minlength']"
+            >كلمة المرور يجب أن تكون 8 أحرف على الأقل</span
+          >
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>تأكيد كلمة المرور الجديدة</mat-label>
+        <input
+          matInput
+          type="password"
+          [(ngModel)]="passwords.confirmPassword"
+          name="confirmPassword"
+          required
+          #confirmPasswordInput="ngModel"
+        />
+        <mat-error
+          *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched"
+        >
+          تأكيد كلمة المرور مطلوب
+        </mat-error>
+      </mat-form-field>
+      <mat-error
+        *ngIf="showPasswordMismatchError() && confirmPasswordInput.touched"
+      >
+        كلمة المرور غير متطابقة
+      </mat-error>
+    </form>
+
+    <!-- Reset Password Confirmation (only visible when resetting) -->
+    <div *ngIf="resetPassword" class="reset-confirmation">
+      <mat-icon color="warn">warning</mat-icon>
+      <p>سيتم إعادة تعيين كلمة المرور إلى "12345678"</p>
+      <p>سيتعين على المستخدم تغيير كلمة المرور في تسجيل الدخول التالي</p>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">إلغاء</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!isFormValid()"
+      (click)="onSubmit()"
+      type="button"
+    >
+      {{ resetPassword ? "إعادة تعيين" : "تغيير كلمة المرور" }}
+    </button>
+  </mat-dialog-actions>
+</div>

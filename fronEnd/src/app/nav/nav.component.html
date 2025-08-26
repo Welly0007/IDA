@@ -1,0 +1,27 @@
+<nav>
+  <div class="user-nav-info">
+    <img src="assets/userBlank.png" alt="User Profile" />
+    <span>User Name</span>
+  </div>
+  <div class="nav-menu">
+    <div class="nav-item" (click)="toggleDropdown()">
+      <img src="assets/settingsIcon.png" alt="Users" />
+      <span>المستخدمين</span>
+      <img
+        src="assets/arrowIcon.png"
+        alt="Arrow"
+        class="arrow"
+        [class.open]="isDropdownOpen"
+      />
+    </div>
+    <ul class="dropdown" [class.open]="isDropdownOpen">
+      <li [routerLinkActive]="'active'">
+        <a routerLink="user">الموظفين</a>
+      </li>
+      <li [routerLinkActive]="'active'">
+        <a routerLink="dept">الادارات</a>
+      </li>
+      <li>مجموعات العمل</li>
+    </ul>
+  </div>
+</nav>

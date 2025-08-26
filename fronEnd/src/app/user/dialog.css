@@ -1,0 +1,116 @@
+.dialog-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  /* flex-direction: row; */
+}
+.dialog-form h2[mat-dialog-title] {
+  grid-column: 1 / -1;
+  grid-row: 1/1;
+  text-align: center;
+  margin: 0 0 20px;
+  background-color: #45698d;
+  color: #fff;
+  font-weight: 700;
+  font: 500 20px / 32px Roboto, "Helvetica Neue", sans-serif;
+}
+form {
+  grid-row: 2/3;
+  grid-column: 1/-1;
+  display: flex;
+  /* flex-direction: column; */
+}
+.dialog-form mat-dialog-content {
+  width: 50%;
+  margin: 0;
+  overflow: hidden;
+  /* max-height: 600px; */
+  /* margin-bottom: 16px; */
+}
+
+mat-dialog-actions {
+  grid-row: 3/-1;
+  /* justify-content: flex-end; */
+}
+mat-form-field {
+  width: 100%;
+  margin-bottom: 5px;
+}
+button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* --- Groups UI styles --- */
+.groups-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Tweak the + button to be bold and flat */
+.groups-row .mat-mini-fab {
+  box-shadow: none;
+  background: #f4f6f8;
+  color: #222;
+  border: 1px solid #d0d5dd;
+}
+
+.groups-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.groups-table thead th {
+  background: #45698d; /* header bar color */
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 12px;
+}
+
+.groups-table thead th:first-child {
+  text-align: right;
+}
+
+.groups-table thead th:last-child {
+  text-align: center;
+  width: 80px;
+}
+
+.groups-table tbody td {
+  background: #f7f8fa; /* light row background */
+  padding: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.delete-btn {
+  color: #b00020; /* warn red */
+  font-size: 18px;
+  line-height: 1;
+  background: transparent;
+}
+
+mat-dialog-actions button {
+  min-width: 100px;
+  background: #314b66;
+  color: #fff;
+  border-radius: 2px;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 2px 4px rgba(44, 62, 80, 0.1);
+  margin: 20px;
+}
+mat-checkbox {
+  margin-left: 10px;
+}
+mat-dialog-actions button:hover {
+  background: #2a3f5a;
+}
+mat-dialog-actions button:disabled {
+  background-color: #ccc; /* A standard grey color */
+  color: #666; /* Darker grey text for better readability */
+  cursor: not-allowed;
+  box-shadow: none;
+}
